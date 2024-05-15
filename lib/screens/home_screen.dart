@@ -61,10 +61,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   border: Border.all(
                     color: cartItems.contains(ComList.names[index])
                         ? Colors.purple
-                        : Colors.lightGreen,
+                        : Colors.transparent,
                     width: 2,
                   ),
-                  borderRadius: const BorderRadius.all(Radius.circular(20))),
+                  borderRadius: const BorderRadius.all(Radius.circular(30))),
               child: Column(
                 children: [
                   Expanded(

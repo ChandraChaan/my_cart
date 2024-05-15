@@ -47,18 +47,44 @@ class _CartScreenState extends State<CartScreen> {
                               style: Theme.of(context).textTheme.titleLarge),
                           subtitle: Text("₹ ${widget.cartItems[a].price}",
                               style: Theme.of(context).textTheme.titleMedium),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () {
-                              widget.cartItems.remove(widget.cartItems[a]);
-                              totalPriceFun();
-                              setState(() {});
-                            },
+                          trailing: SizedBox(
+                            width: 120,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.remove),
+                                  onPressed: () {
+                                    if (widget.cartItems[a].quantity > 1) {
+                                      widget.cartItems[a].quantity--;
+                                    } else {
+                                      widget.cartItems
+                                          .remove(widget.cartItems[a]);
+                                    }
+                                    totalPriceFun();
+                                    setState(() {});
+                                  },
+                                ),
+                                Text('${widget.cartItems[a].quantity}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium),
+                                IconButton(
+                                  icon: const Icon(Icons.add),
+                                  onPressed: () {
+                                    widget.cartItems[a].quantity++;
+                                    totalPriceFun();
+                                    setState(() {});
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         const Divider(
                           height: 0.5,
-                          color: Colors.green,
+                          color: Colors.purple,
                         )
                       ]
                     ],
@@ -81,7 +107,8 @@ class _CartScreenState extends State<CartScreen> {
   totalPriceFun() {
     totalPrice = 0.0;
     for (int a = 0; a < widget.cartItems.length; a++) {
-      totalPrice = totalPrice + widget.cartItems[a].price;
+      totalPrice = totalPrice +
+          (widget.cartItems[a].quantity * widget.cartItems[a].price);
     }
     setState(() {});
   }
